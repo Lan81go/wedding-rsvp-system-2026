@@ -252,6 +252,17 @@
                     <input type="text" name="entry.2035934123" required placeholder="請輸入您的姓名" class="w-full px-4 py-3 bg-white rounded-lg border border-gray-200 focus:outline-none focus:border-morandi-gold text-sm transition-colors">
                 </div>
 
+                <!-- 4. 中英雙語標籤 GUESTS & 下拉選單純中文 -->
+                <div>
+                    <label class="block text-xs tracking-wider text-gray-600 mb-2 uppercase font-medium">您與新人關係 RELATIONSHIP <span class="text-red-400">*</span></label>
+                    <select id="您與新人關係 RELATIONSHIP" name="entry.502371992" required class="w-full px-4 py-3 bg-white rounded-lg border border-gray-200 focus:outline-none focus:border-morandi-gold text-sm transition-colors">
+                        <option value="新郎親戚">新郎親戚</option>
+                        <option value="新郎好友">新郎好友</option>
+                        <option value="新娘親戚">新娘親戚</option>
+                        <option value="新娘好友">新娘好友</option>
+                   </select>
+                </div>
+
                 <!-- 4. 中英雙語標籤 EMAIL -->
                 <div>
                     <label class="block text-xs tracking-wider text-gray-600 mb-2 uppercase font-medium">信箱 EMAIL <span class="text-red-400">*</span></label>
@@ -283,18 +294,7 @@
                 <div id="address-field" class="hidden">
                     <label class="block text-xs tracking-wider text-gray-600 mb-2 uppercase font-medium">郵遞區號與收件地址 <span class="text-red-400">*</span></label>
                     <input id="address-input" type="text" name="entry.1136977357" disabled placeholder="請填寫完整收件地址（含郵遞區號）" class="w-full px-4 py-3 bg-white rounded-lg border border-gray-200 focus:outline-none focus:border-morandi-gold text-sm transition-colors">
-                </div>    
-
-                <!-- 4. 中英雙語標籤 GUESTS & 下拉選單純中文 -->
-                <div>
-                    <label class="block text-xs tracking-wider text-gray-600 mb-2 uppercase font-medium">您與新人關係 RELATIONSHIP <span class="text-red-400">*</span></label>
-                    <select id="您與新人關係 RELATIONSHIP" name="entry.502371992" required class="w-full px-4 py-3 bg-white rounded-lg border border-gray-200 focus:outline-none focus:border-morandi-gold text-sm transition-colors">
-                        <option value="新郎親戚">新郎親戚</option>
-                        <option value="新郎好友">新郎好友</option>
-                        <option value="新娘親戚">新娘親戚</option>
-                        <option value="新娘好友">新娘好友</option>
-                   </select>
-                </div>
+                </div> 
                 
                 <!-- 4. 中英雙語標籤 GUESTS & 下拉選單純中文 -->
                 <div id="guest-count-field" class="hidden">
@@ -515,6 +515,68 @@
             }
 
             return false;
+        }
+
+        /* =========================================================
+        DASHBOARD: 解析 Google Sheet 的餐點摘要
+        ========================================================= */
+        function parseMealSummary(text) {
+            const result = {
+                total: 0,
+                meat: 0,
+                vegan: 0,
+                unspecified: 0
+            };
+
+            if (!text) {
+                return result;
+            }
+
+            const value = String(text).trim();
+
+            // 總出席人數
+            const totalMatch = value.match(/(\d+)\s*人出席/);
+
+            // 葷食
+            const meatMatch = value.match(/葷食\s*(\d+)\s*人/);
+
+            // 全素
+            const veganMatch = value.match(/全素\s*(\d+)\s*人/);
+
+            // 未指定
+            const unspecifiedMatch = value.match(/未指定\s*(\d+)\s*人/);
+
+            if (totalMatch) {
+                result.total = parseInt(totalMatch[1], 10);
+            }
+
+            if (meatMatch) {
+                result.meat = parseInt(meatMatch[1], 10);
+            }   
+
+            if (veganMatch) {
+                result.vegan = parseInt(veganMatch[1], 10);
+            }
+
+            if (unspecifiedMatch) {
+                result.unspecified = parseInt(unspecifiedMatch[1], 10);
+            }
+
+            /*
+            如果有總人數，但沒有明確指定餐點，
+            就把剩餘人數視為「未指定」。
+            */
+            const calculatedUnspecified =
+                result.total -
+                result.meat -
+                result.vegan -
+                result.unspecified;
+
+            if (calculatedUnspecified > 0) {
+                result.unspecified += calculatedUnspecified;
+            }
+
+            return result;
         }
 
         function resetMealFields() {
