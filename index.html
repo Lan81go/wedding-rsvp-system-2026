@@ -297,7 +297,7 @@
                 </div>
                 
                 <!-- 4. 中英雙語標籤 GUESTS & 下拉選單純中文 -->
-                <div>
+                <div id="guest-count-field" class="hidden">
                     <label class="block text-xs tracking-wider text-gray-600 mb-2 uppercase font-medium">參加午宴人數 NUMBER OF GUESTS <span class="text-red-400">*</span></label>
                     <select id="guest-count" name="entry.1647227358" required class="w-full px-4 py-3 bg-white rounded-lg border border-gray-200 focus:outline-none focus:border-morandi-gold text-sm transition-colors disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed">
                         <option value="" disabled selected>請選擇參加人數</option>
@@ -315,34 +315,31 @@
                     >
                 </div>
 
-                <!-- 智能 RSVP：出席後依人數產生每位賓客餐點選擇 -->
+                <!-- 智能 RSVP：素食需求選擇 -->
                 <div id="conditional-fields" class="hidden pt-4 border-t border-gray-200/60 space-y-6">
                     <div>
-                        <div class="flex items-end justify-between gap-4 mb-3">
-                            <div>
-                                <label class="block text-xs tracking-wider text-gray-600 uppercase font-medium">餐點安排 MEAL SELECTION <span class="text-red-400">*</span></label>
-                                <p class="text-xs text-gray-400 mt-1">請為每位出席賓客選擇餐點</p>
-                            </div>
-                            <span id="meal-counter" class="text-xs font-medium text-morandi-green whitespace-nowrap">0 / 0 已選擇</span>
-                        </div>
-
-                        <!-- Google Form 的 entry.810155347 請改成「段落」或「簡答」題型。此欄位儲存整理後的餐點分配。 -->
+                        <!-- Hidden field sent to Google Form entry.810155347 -->
                         <input type="hidden" id="meal-summary" name="entry.810155347" value="" disabled>
 
-                        <div id="meal-guest-list" class="space-y-4"></div>
-
-                        <div id="meal-breakdown" class="hidden mt-4 grid grid-cols-3 gap-2 text-center">
-                            <div class="rounded-lg bg-morandi-bg p-3">
-                                <div class="text-lg font-medium text-morandi-gold" id="meal-count-meat">0</div>
-                                <div class="text-[11px] text-gray-400 mt-1">葷食</div>
-                            </div>
-                            <div class="rounded-lg bg-morandi-bg p-3">
-                                <div class="text-lg font-medium text-morandi-gold" id="meal-count-vegan">0</div>
-                                <div class="text-[11px] text-gray-400 mt-1">全素</div>
-                            </div>
+                        <!-- Step 1: Any Vegan Guests? (Hidden until guest count is selected) -->
+                        <div id="vegan-question-container" class="mb-4 hidden">
+                            <label class="block text-xs tracking-wider text-gray-600 mb-2 uppercase font-medium">是否有同行賓客需要素食餐點？ IS THERE ANY VEGAN GUEST? <span class="text-red-400">*</span></label>
+                            <select id="has-vegan-select" required onchange="handleVeganChoiceChange()" class="w-full px-4 py-3 bg-white rounded-lg border border-gray-200 focus:outline-none focus:border-morandi-gold text-sm transition-colors disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed">
+                                <option value="" disabled selected>請選擇是否有素食需求</option>
+                                <option value="否">否（皆吃葷食）</option>
+                                <option value="是">是（需要素食餐點）</option>
+                            </select>
                         </div>
 
-                        <p id="meal-error" class="hidden text-xs text-red-500 mt-3">請完成每位賓客的餐點選擇後再送出。</p>
+                        <!-- Step 2: How Many Vegan Guests? (Shown sequentially if "Yes") -->
+                        <div id="vegan-count-container" class="hidden">
+                            <label class="block text-xs tracking-wider text-gray-600 mb-2 uppercase font-medium">需要幾份素食餐點？ NUMBER OF VEGAN MEALS <span class="text-red-400">*</span></label>
+                            <select id="vegan-count-select" onchange="updateMealSummary()" class="w-full px-4 py-3 bg-white rounded-lg border border-gray-200 focus:outline-none focus:border-morandi-gold text-sm transition-colors">
+                                <option value="" disabled selected>請選擇素食餐點數量</option>
+                            </select>
+                        </div>
+
+                        <p id="meal-error" class="hidden text-xs text-red-500 mt-3">請完成餐點選擇後再送出。</p>
                     </div>
 
                     <!-- BABY CHAIR -->
@@ -437,16 +434,16 @@
 
         // 3. 智能 RSVP 邏輯
         const attendanceSelect = document.getElementById('attendance-select');
+        const guestCountField = document.getElementById('guest-count-field');
         const guestSelect = document.getElementById('guest-count');
         const guestCountHidden = document.getElementById('guest-count-hidden');
         const conditionalFields = document.getElementById('conditional-fields');
         const mealSummary = document.getElementById('meal-summary');
-        const mealGuestList = document.getElementById('meal-guest-list');
-        const mealCounter = document.getElementById('meal-counter');
+        const veganQuestionContainer = document.getElementById('vegan-question-container');
+        const hasVeganSelect = document.getElementById('has-vegan-select');
+        const veganCountContainer = document.getElementById('vegan-count-container');
+        const veganCountSelect = document.getElementById('vegan-count-select');
         const mealError = document.getElementById('meal-error');
-        const mealBreakdown = document.getElementById('meal-breakdown');
-        const mealCountMeat = document.getElementById('meal-count-meat');
-        const mealCountVegan = document.getElementById('meal-count-vegan');
         const babyChairSelect = document.getElementById('兒童椅 BABY CHAIR');
         const invitationField = document.getElementById('invitation-field');
         const invitationSelect = document.getElementById('invitation-select');
@@ -458,112 +455,83 @@
             return match ? parseInt(match[0], 10) : 0;
         }
 
+        function handleVeganChoiceChange() {
+            const choice = hasVeganSelect.value;
+            const totalGuests = getGuestCount();
+
+            if (choice === '否') {
+                veganCountContainer.classList.add('hidden');
+                veganCountSelect.required = false;
+                veganCountSelect.value = '';
+                updateMealSummary();
+            } else if (choice === '是') {
+                // Render options dynamically based on guest count
+                veganCountSelect.innerHTML = '<option value="" disabled selected>請選擇素食餐點數量</option>';
+                for (let i = 1; i <= totalGuests; i++) {
+                    const opt = document.createElement('option');
+                    opt.value = i;
+                    opt.textContent = `${i} 份素食`;
+                    veganCountSelect.appendChild(opt);
+                }
+                veganCountContainer.classList.remove('hidden');
+                veganCountSelect.required = true;
+                updateMealSummary();
+            }
+        }
+
         function updateMealSummary() {
-            const mealChoices = [...mealGuestList.querySelectorAll('.guest-meal-select')];
-            const selectedCount = mealChoices.filter(select => select.value !== '').length;
-            const totalGuests = mealChoices.length;
+            const totalGuests = getGuestCount();
+            const hasVegan = hasVeganSelect.value;
 
-            mealCounter.textContent = `${selectedCount} / ${totalGuests} 已選擇`;
+            if (totalGuests === 0 || !hasVegan) {
+                mealSummary.value = '';
+                mealSummary.disabled = true;
+                return false;
+            }
 
-            const counts = { 葷食: 0, 全素: 0 };
-            mealChoices.forEach(select => {
-                if (select.value in counts) counts[select.value] += 1;
-            });
-
-            mealCountMeat.textContent = counts['葷食'];
-            mealCountVegan.textContent = counts['全素'];
-            mealBreakdown.classList.toggle('hidden', totalGuests === 0);
-
-            if (totalGuests > 0 && selectedCount === totalGuests) {
-                mealSummary.value = mealChoices
-                    .map((select, index) => `賓客${index + 1}：${select.value}`)
-                    .join('；');
+            if (hasVegan === '否') {
+                mealSummary.value = `${totalGuests}人出席：葷食 ${totalGuests} 人`;
                 mealSummary.disabled = false;
                 mealError.classList.add('hidden');
                 return true;
             }
 
-            mealSummary.value = '';
-            mealSummary.disabled = true;
+            if (hasVegan === '是') {
+                const veganCount = parseInt(veganCountSelect.value, 10);
+                if (isNaN(veganCount)) {
+                    mealSummary.value = '';
+                    mealSummary.disabled = true;
+                    return false;
+                }
+                const meatCount = totalGuests - veganCount;
+                if (meatCount > 0) {
+                    mealSummary.value = `${totalGuests}人出席：葷食 ${meatCount} 人，全素 ${veganCount} 人`;
+                } else {
+                    mealSummary.value = `${totalGuests}人出席：全素 ${veganCount} 人`;
+                }
+                mealSummary.disabled = false;
+                mealError.classList.add('hidden');
+                return true;
+            }
+
             return false;
         }
 
-        function renderMealSelectors(count) {
-            mealGuestList.innerHTML = '';
+        function resetMealFields() {
+            hasVeganSelect.value = '';
+            veganCountSelect.value = '';
+            veganQuestionContainer.classList.add('hidden');
+            veganCountContainer.classList.add('hidden');
             mealSummary.value = '';
             mealSummary.disabled = true;
             mealError.classList.add('hidden');
-
-            if (count <= 0) {
-                mealCounter.textContent = '0 / 0 已選擇';
-                mealCountMeat.textContent = '0';
-                mealCountVegan.textContent = '0';
-                mealBreakdown.classList.add('hidden');
-                mealGuestList.innerHTML = '<p class="text-sm text-gray-400">請先選擇參加午宴人數。</p>';
-                return;
-            }
-
-            for (let i = 1; i <= count; i++) {
-                const wrapper = document.createElement('div');
-                wrapper.className = 'bg-white rounded-xl border border-morandi-light p-5';
-                wrapper.innerHTML = `
-                    <label class="block text-sm font-medium text-gray-700 mb-2">賓客 ${i} 的餐點</label>
-                    <select class="guest-meal-select w-full px-4 py-3 bg-white rounded-lg border border-gray-200 focus:outline-none focus:border-morandi-gold text-sm transition-colors" required>
-                        <option value="" disabled selected>請選擇餐點</option>
-                        <option value="葷食">葷食</option>
-                        <option value="全素">全素</option>
-                    </select>
-                `;
-
-                const select = wrapper.querySelector('.guest-meal-select');
-                select.addEventListener('change', updateMealSummary);
-                mealGuestList.appendChild(wrapper);
-            }
-
-            updateMealSummary();
-        }
-
-
-        function updateInvitationFields() {
-            const isAttending = attendanceSelect.value === '熱情出席';
-
-            // 沒有出席：紙本喜帖與地址都隱藏、停用，也不送出。
-            if (!isAttending) {
-                invitationField.classList.add('hidden');
-                invitationSelect.value = '';
-                invitationSelect.disabled = true;
-                invitationSelect.required = false;
-
-                addressField.classList.add('hidden');
-                addressInput.value = '';
-                addressInput.disabled = true;
-                addressInput.required = false;
-                return;
-            }
-
-            // 有出席：顯示紙本喜帖選項。
-            invitationField.classList.remove('hidden');
-            invitationSelect.disabled = false;
-            invitationSelect.required = true;
-
-            // 只有需要紙本喜帖時才顯示並要求填寫地址。
-            if (invitationSelect.value === '需要紙本喜帖') {
-                addressField.classList.remove('hidden');
-                addressInput.disabled = false;
-                addressInput.required = true;
-            } else {
-                addressField.classList.add('hidden');
-                addressInput.value = '';
-                addressInput.disabled = true;
-                addressInput.required = false;
-            }
         }
 
         function updateGuestFields() {
             const attendance = attendanceSelect.value;
 
-            // 尚未選擇出席意願
             if (attendance === '') {
+                guestCountField.classList.add('hidden');
                 guestSelect.value = '';
                 guestSelect.disabled = true;
                 guestSelect.required = false;
@@ -572,41 +540,35 @@
                 guestCountHidden.disabled = true;
 
                 conditionalFields.classList.add('hidden');
-                mealSummary.value = '';
-                mealSummary.disabled = true;
-                mealGuestList.innerHTML = '';
-                mealCounter.textContent = '0 / 0 已選擇';
-                mealCountMeat.textContent = '0';
-                mealCountVegan.textContent = '0';
-                mealBreakdown.classList.add('hidden');
+                resetMealFields();
                 babyChairSelect.disabled = true;
                 updateInvitationFields();
                 return;
             }
 
-            // 熱情出席
             if (attendance === '熱情出席') {
-                // 回到出席狀態時，移除「0 人」選項，避免出席者選到 0 人。
+                guestCountField.classList.remove('hidden');
+
                 const zeroOption = guestSelect.querySelector('option[data-not-attending="true"]');
                 if (zeroOption) zeroOption.remove();
 
                 guestSelect.disabled = false;
                 guestSelect.required = true;
 
-                // 清除前一次「不出席」狀態。
                 guestSelect.value = '';
                 guestCountHidden.value = '';
                 guestCountHidden.disabled = true;
 
                 conditionalFields.classList.remove('hidden');
                 babyChairSelect.disabled = false;
-                renderMealSelectors(getGuestCount());
+                resetMealFields();
                 updateInvitationFields();
                 return;
             }
 
-            // 遺憾無法出席：動態加入 0 人選項，顯示並鎖定，不可切換。
             if (attendance === '遺憾無法出席，給予祝福') {
+                guestCountField.classList.add('hidden');
+
                 let zeroOption = guestSelect.querySelector('option[data-not-attending="true"]');
 
                 if (!zeroOption) {
@@ -621,18 +583,11 @@
                 guestSelect.disabled = true;
                 guestSelect.required = false;
 
-                // disabled 的 select 不會送出，因此由 hidden input 傳送 0 人。
                 guestCountHidden.value = '0 人 (無法出席)';
                 guestCountHidden.disabled = false;
 
                 conditionalFields.classList.add('hidden');
-                mealSummary.value = '';
-                mealSummary.disabled = true;
-                mealGuestList.innerHTML = '';
-                mealCounter.textContent = '0 / 0 已選擇';
-                mealCountMeat.textContent = '0';
-                mealCountVegan.textContent = '0';
-                mealBreakdown.classList.add('hidden');
+                resetMealFields();
                 babyChairSelect.disabled = true;
                 updateInvitationFields();
             }
@@ -640,22 +595,21 @@
 
         guestSelect.addEventListener('change', () => {
             if (attendanceSelect.value === '熱情出席') {
-                renderMealSelectors(getGuestCount());
+                resetMealFields();
+                if (getGuestCount() > 0) {
+                    veganQuestionContainer.classList.remove('hidden');
+                }
             }
         });
 
         function handleSubmit() {
             if (attendanceSelect.value === '熱情出席') {
-                const expectedGuests = getGuestCount();
-                const mealChoices = [...mealGuestList.querySelectorAll('.guest-meal-select')];
-
-                if (expectedGuests === 0 || mealChoices.length !== expectedGuests || mealChoices.some(select => !select.value)) {
+                const isValid = updateMealSummary();
+                if (!isValid) {
                     mealError.classList.remove('hidden');
-                    mealGuestList.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    hasVeganSelect.scrollIntoView({ behavior: 'smooth', block: 'center' });
                     return false;
                 }
-
-                updateMealSummary();
             }
 
             submitted = true;
