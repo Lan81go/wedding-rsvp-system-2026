@@ -117,39 +117,39 @@
         </div>
     </section>
 
-        <!-- 2. 計時器視覺 (極重要) -->
-        <section class="py-16 px-4 bg-morandi-bg">
-            <div class="max-w-4xl mx-auto text-center">
-                <h2 class="font-cormorant text-2xl tracking-widest text-morandi-gold mb-2 uppercase">Count Every Second</h2>
-                <p class="text-xs tracking-wider text-gray-500 mb-10">期待與您見面的倒數時刻</p>
-            
-                <div id="countdown" class="grid grid-cols-4 gap-3 md:gap-6 max-w-2xl mx-auto">
-                    <!-- 天數 -->
-                    <div class="timer-card rounded-2xl p-4 md:p-6 flex flex-col justify-center items-center relative border border-white">
-                        <span id="days" class="font-cormorant text-3xl md:text-5xl font-semibold text-morandi-gold">00</span>
-                        <span class="text-[10px] md:text-xs text-gray-400 tracking-widest uppercase mt-2">Days / 天</span>
-                        <div class="hidden md:block absolute -right-3 top-1/4 bottom-1/4 w-[1px] bg-morandi-gold/20"></div>
-                    </div>
-                    <!-- 小時 -->
-                    <div class="timer-card rounded-2xl p-4 md:p-6 flex flex-col justify-center items-center relative border border-white">
-                        <span id="hours" class="font-cormorant text-3xl md:text-5xl font-semibold text-morandi-gold">00</span>
-                        <span class="text-[10px] md:text-xs text-gray-400 tracking-widest uppercase mt-2">Hours / 時</span>
-                        <div class="hidden md:block absolute -right-3 top-1/4 bottom-1/4 w-[1px] bg-morandi-gold/20"></div>
-                    </div>
-                    <!-- 分鐘 -->
-                    <div class="timer-card rounded-2xl p-4 md:p-6 flex flex-col justify-center items-center relative border border-white">
-                        <span id="minutes" class="font-cormorant text-3xl md:text-5xl font-semibold text-morandi-gold">00</span>
-                        <span class="text-[10px] md:text-xs text-gray-400 tracking-widest uppercase mt-2">Mins / 分</span>
-                        <div class="hidden md:block absolute -right-3 top-1/4 bottom-1/4 w-[1px] bg-morandi-gold/20"></div>
-                    </div>
-                    <!-- 秒數 -->
-                    <div class="timer-card rounded-2xl p-4 md:p-6 flex flex-col justify-center items-center border border-white">
-                        <span id="seconds" class="font-cormorant text-3xl md:text-5xl font-semibold text-morandi-gold">00</span>
-                        <span class="text-[10px] md:text-xs text-gray-400 tracking-widest uppercase mt-2">Secs / 秒</span>
-                    </div>
+    <!-- 2. 計時器視覺 (極重要) -->
+    <section class="py-16 px-4 bg-morandi-bg">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="font-cormorant text-2xl tracking-widest text-morandi-gold mb-2 uppercase">Count Every Second</h2>
+            <p class="text-xs tracking-wider text-gray-500 mb-10">期待與您見面的倒數時刻</p>
+        
+            <div id="countdown" class="grid grid-cols-4 gap-3 md:gap-6 max-w-2xl mx-auto">
+                <!-- 天數 -->
+                <div class="timer-card rounded-2xl p-4 md:p-6 flex flex-col justify-center items-center relative border border-white">
+                    <span id="days" class="font-cormorant text-3xl md:text-5xl font-semibold text-morandi-gold">00</span>
+                    <span class="text-[10px] md:text-xs text-gray-400 tracking-widest uppercase mt-2">Days / 天</span>
+                    <div class="hidden md:block absolute -right-3 top-1/4 bottom-1/4 w-[1px] bg-morandi-gold/20"></div>
+                </div>
+                <!-- 小時 -->
+                <div class="timer-card rounded-2xl p-4 md:p-6 flex flex-col justify-center items-center relative border border-white">
+                    <span id="hours" class="font-cormorant text-3xl md:text-5xl font-semibold text-morandi-gold">00</span>
+                    <span class="text-[10px] md:text-xs text-gray-400 tracking-widest uppercase mt-2">Hours / 時</span>
+                    <div class="hidden md:block absolute -right-3 top-1/4 bottom-1/4 w-[1px] bg-morandi-gold/20"></div>
+                </div>
+                <!-- 分鐘 -->
+                <div class="timer-card rounded-2xl p-4 md:p-6 flex flex-col justify-center items-center relative border border-white">
+                    <span id="minutes" class="font-cormorant text-3xl md:text-5xl font-semibold text-morandi-gold">00</span>
+                    <span class="text-[10px] md:text-xs text-gray-400 tracking-widest uppercase mt-2">Mins / 分</span>
+                    <div class="hidden md:block absolute -right-3 top-1/4 bottom-1/4 w-[1px] bg-morandi-gold/20"></div>
+                </div>
+                <!-- 秒數 -->
+                <div class="timer-card rounded-2xl p-4 md:p-6 flex flex-col justify-center items-center border border-white">
+                    <span id="seconds" class="font-cormorant text-3xl md:text-5xl font-semibold text-morandi-gold">00</span>
+                    <span class="text-[10px] md:text-xs text-gray-400 tracking-widest uppercase mt-2">Secs / 秒</span>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
     <!-- 3. 質感配置：關於我們 (V-Card 概念) -->
     <section id="about" class="py-20 px-4 bg-white">
@@ -218,6 +218,7 @@
                             </a>
                             <p class="text-xs text-gray-400 mt-2">（點擊圖片可開啟高畫質大圖）</p>
                         </div>
+                    </div>
                 </div>
             </div>
 
@@ -240,114 +241,116 @@
             <!-- 
                 【說明】：
                 5. 預填網址解析指令：
-                請將您的 Google 表單 action 網址貼於下方 action 屬性（如：https://docs.google.com/forms/d/e/【您的FORM_ID】/formResponse）。
-                請將您的 Google 表單 entry.XXXXXX 對應至各輸入框的 name 屬性。
+                請將您的 Google 表單 action 網址貼於下方 action 屬性。
                 嚴格遵照：輸入框 value 保持空白，絕無預設文字。
             -->
             <form id="wedding-rsvp" action="https://docs.google.com/forms/d/e/1FAIpQLSf0t0nSBvNHRZ4vnfqGREEJY5nQgwHxXXYCmucfpObyoPj1fw/formResponse" method="POST" target="hidden_iframe" onsubmit="return handleSubmit();" class="space-y-6 bg-morandi-bg p-8 md:p-10 rounded-2xl border border-morandi-light shadow-sm">
                 
-                <!-- 4. 中英雙語標籤 NAME -->
+                <!-- 1. NAME (Always visible) -->
                 <div>
                     <label class="block text-xs tracking-wider text-gray-600 mb-2 uppercase font-medium">姓名 NAME <span class="text-red-400">*</span></label>
                     <input type="text" name="entry.2035934123" required placeholder="請輸入您的姓名" class="w-full px-4 py-3 bg-white rounded-lg border border-gray-200 focus:outline-none focus:border-morandi-gold text-sm transition-colors">
                 </div>
-
-                <!-- 4. 中英雙語標籤 GUESTS & 下拉選單純中文 -->
-                <div>
-                    <label class="block text-xs tracking-wider text-gray-600 mb-2 uppercase font-medium">您與新人關係 RELATIONSHIP <span class="text-red-400">*</span></label>
-                    <select id="您與新人關係 RELATIONSHIP" name="entry.502371992" required class="w-full px-4 py-3 bg-white rounded-lg border border-gray-200 focus:outline-none focus:border-morandi-gold text-sm transition-colors">
-                        <option value="" disabled selected>請選擇您與新人的關係</option>
-                        <option value="新郎親戚">新郎親戚</option>
-                        <option value="新郎好友">新郎好友</option>
-                        <option value="新娘親戚">新娘親戚</option>
-                        <option value="新娘好友">新娘好友</option>
-                   </select>
-                </div>
-
-                <!-- 4. 中英雙語標籤 EMAIL -->
-                <div>
-                    <label class="block text-xs tracking-wider text-gray-600 mb-2 uppercase font-medium">信箱 EMAIL <span class="text-red-400">*</span></label>
-                    <input type="email" name="entry.2124204398" required placeholder="adamandeva@mail.com" class="w-full px-4 py-3 bg-white rounded-lg border border-gray-200 focus:outline-none focus:border-morandi-gold text-sm transition-colors">
-                </div>            
                 
-                <!-- 4. 中英雙語標籤 ATTENDANCE & 下拉選單純中文 -->
+                <!-- 2. ATTENDANCE (Always visible, controls the rest of the form) -->
                 <div>
                     <label class="block text-xs tracking-wider text-gray-600 mb-2 uppercase font-medium">出席意願 ATTENDANCE <span class="text-red-400">*</span></label>
                     <select id="attendance-select" name="entry.1028102148" required onchange="updateGuestFields()" class="w-full px-4 py-3 bg-white rounded-lg border border-gray-200 focus:outline-none focus:border-morandi-gold text-sm transition-colors">
-                    
                         <option value="" disabled selected>請選擇您的出席意願</option>
                         <option value="熱情出席">熱情出席</option>
                         <option value="遺憾無法出席，給予祝福">遺憾無法出席，給予祝福</option>
                     </select>
                 </div>
 
-                <!-- 紙本喜帖：只有「熱情出席」後才顯示 -->
-                <div id="invitation-field" class="hidden">
-                    <label class="block text-xs tracking-wider text-gray-600 mb-2 uppercase font-medium">是否需要紙本喜帖？ <span class="text-red-400">*</span></label>
-                    <select id="invitation-select" name="entry.296235680" disabled required onchange="updateInvitationFields()" class="w-full px-4 py-3 bg-white rounded-lg border border-gray-200 focus:outline-none focus:border-morandi-gold text-sm transition-colors">
-                        <option value="" disabled selected>請選擇是否需要紙本喜帖</option>
-                        <option value="需要紙本喜帖">需要紙本喜帖</option>
-                        <option value="不需要，使用電子喜帖即可">不需要，使用電子喜帖即可</option>
-                    </select>
-                </div>
-
-                <!-- 收件地址：只有選擇「需要紙本喜帖」後才顯示 -->
-                <div id="address-field" class="hidden">
-                    <label class="block text-xs tracking-wider text-gray-600 mb-2 uppercase font-medium">郵遞區號與收件地址 <span class="text-red-400">*</span></label>
-                    <input id="address-input" type="text" name="entry.1136977357" disabled placeholder="請填寫完整收件地址（含郵遞區號）" class="w-full px-4 py-3 bg-white rounded-lg border border-gray-200 focus:outline-none focus:border-morandi-gold text-sm transition-colors">
-                </div> 
-                
-                <!-- 4. 中英雙語標籤 GUESTS & 下拉選單純中文 -->
-                <div id="guest-count-field" class="hidden">
-                    <label class="block text-xs tracking-wider text-gray-600 mb-2 uppercase font-medium">參加午宴人數 NUMBER OF GUESTS <span class="text-red-400">*</span></label>
-                    <select id="guest-count" name="entry.1647227358" required class="w-full px-4 py-3 bg-white rounded-lg border border-gray-200 focus:outline-none focus:border-morandi-gold text-sm transition-colors disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed">
-                        <option value="" disabled selected>請選擇參加人數</option>
-                        <option value="1 人">1 人</option>
-                        <option value="2 人">2 人</option>
-                        <option value="3 人">3 人</option>
-                        <option value="4 人">4 人</option>
-                    </select>
-                </div>
-
-                <!-- 智能 RSVP：素食需求選擇 -->
-                <div id="conditional-fields" class="hidden pt-4 border-t border-gray-200/60 space-y-6">
+                <!-- 3. ATTENDEE DETAILS (Hidden by default, shown only if '熱情出席' is selected) -->
+                <div id="attendee-details" class="hidden space-y-6">
+                    
+                    <!-- RELATIONSHIP -->
                     <div>
-                        <!-- Hidden field sent to Google Form entry.810155347 -->
-                        <input type="hidden" id="meal-summary" name="entry.810155347" value="" disabled>
-
-                        <!-- Step 1: Any Vegan Guests? (Hidden until guest count is selected) -->
-                        <div id="vegan-question-container" class="mb-4 hidden">
-                            <label class="block text-xs tracking-wider text-gray-600 mb-2 uppercase font-medium">是否有同行賓客需要素食餐點？ IS THERE ANY VEGAN GUEST? <span class="text-red-400">*</span></label>
-                            <select id="has-vegan-select" required onchange="handleVeganChoiceChange()" class="w-full px-4 py-3 bg-white rounded-lg border border-gray-200 focus:outline-none focus:border-morandi-gold text-sm transition-colors disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed">
-                                <option value="" disabled selected>請選擇是否有素食需求</option>
-                                <option value="否">否（皆吃葷食）</option>
-                                <option value="是">是（需要素食餐點）</option>
-                            </select>
-                        </div>
-
-                        <!-- Step 2: How Many Vegan Guests? (Shown sequentially if "Yes") -->
-                        <div id="vegan-count-container" class="hidden">
-                            <label class="block text-xs tracking-wider text-gray-600 mb-2 uppercase font-medium">需要幾份素食餐點？ NUMBER OF VEGAN MEALS <span class="text-red-400">*</span></label>
-                            <select id="vegan-count-select" onchange="updateMealSummary()" class="w-full px-4 py-3 bg-white rounded-lg border border-gray-200 focus:outline-none focus:border-morandi-gold text-sm transition-colors">
-                                <option value="" disabled selected>請選擇素食餐點數量</option>
-                            </select>
-                        </div>
-
-                        <p id="meal-error" class="hidden text-xs text-red-500 mt-3">請完成餐點選擇後再送出。</p>
+                        <label class="block text-xs tracking-wider text-gray-600 mb-2 uppercase font-medium">您與新人關係 RELATIONSHIP <span class="text-red-400">*</span></label>
+                        <select id="您與新人關係 RELATIONSHIP" name="entry.502371992" class="w-full px-4 py-3 bg-white rounded-lg border border-gray-200 focus:outline-none focus:border-morandi-gold text-sm transition-colors">
+                            <option value="" disabled selected>請選擇您與新人的關係</option>
+                            <option value="新郎親戚">新郎親戚</option>
+                            <option value="新郎好友">新郎好友</option>
+                            <option value="新娘親戚">新娘親戚</option>
+                            <option value="新娘好友">新娘好友</option>
+                       </select>
                     </div>
 
-                    <!-- BABY CHAIR -->
+                    <!-- EMAIL -->
                     <div>
-                        <label class="block text-xs tracking-wider text-gray-600 mb-2 uppercase font-medium">是否需要兒童椅 BABY CHAIR</label>
-                        <select id="兒童椅 BABY CHAIR" name="entry.341668150" class="w-full px-4 py-3 bg-white rounded-lg border border-gray-200 focus:outline-none focus:border-morandi-gold text-sm transition-colors disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed">
-                            <option value="不需要">不需要</option>
-                            <option value="需要 1 張">需要 1 張</option>
-                            <option value="需要 2 張">需要 2 張</option>
+                        <label class="block text-xs tracking-wider text-gray-600 mb-2 uppercase font-medium">信箱 EMAIL <span class="text-red-400">*</span></label>
+                        <input type="email" name="entry.2124204398" placeholder="adamandeva@mail.com" class="w-full px-4 py-3 bg-white rounded-lg border border-gray-200 focus:outline-none focus:border-morandi-gold text-sm transition-colors">
+                    </div>            
+
+                    <!-- PAPER INVITATION -->
+                    <div id="invitation-field" class="hidden">
+                        <label class="block text-xs tracking-wider text-gray-600 mb-2 uppercase font-medium">是否需要紙本喜帖？ <span class="text-red-400">*</span></label>
+                        <select id="invitation-select" name="entry.296235680" disabled required onchange="updateInvitationFields()" class="w-full px-4 py-3 bg-white rounded-lg border border-gray-200 focus:outline-none focus:border-morandi-gold text-sm transition-colors">
+                            <option value="" disabled selected>請選擇是否需要紙本喜帖</option>
+                            <option value="需要紙本喜帖">需要紙本喜帖</option>
+                            <option value="不需要，使用電子喜帖即可">不需要，使用電子喜帖即可</option>
                         </select>
                     </div>
+
+                    <!-- ADDRESS -->
+                    <div id="address-field" class="hidden">
+                        <label class="block text-xs tracking-wider text-gray-600 mb-2 uppercase font-medium">郵遞區號與收件地址 <span class="text-red-400">*</span></label>
+                        <input id="address-input" type="text" name="entry.1136977357" disabled placeholder="請填寫完整收件地址（含郵遞區號）" class="w-full px-4 py-3 bg-white rounded-lg border border-gray-200 focus:outline-none focus:border-morandi-gold text-sm transition-colors">
+                    </div> 
+                    
+                    <!-- GUEST COUNT -->
+                    <div id="guest-count-field" class="hidden">
+                        <label class="block text-xs tracking-wider text-gray-600 mb-2 uppercase font-medium">參加午宴人數 NUMBER OF GUESTS <span class="text-red-400">*</span></label>
+                        <select id="guest-count" name="entry.1647227358" required class="w-full px-4 py-3 bg-white rounded-lg border border-gray-200 focus:outline-none focus:border-morandi-gold text-sm transition-colors disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed">
+                            <option value="" disabled selected>請選擇參加人數</option>
+                            <option value="1 人">1 人</option>
+                            <option value="2 人">2 人</option>
+                            <option value="3 人">3 人</option>
+                            <option value="4 人">4 人</option>
+                        </select>
+                    </div>
+
+                    <!-- MEALS AND BABY CHAIR -->
+                    <div id="conditional-fields" class="hidden pt-4 border-t border-gray-200/60 space-y-6">
+                        <div>
+                            <!-- Hidden field sent to Google Form entry.810155347 -->
+                            <input type="hidden" id="meal-summary" name="entry.810155347" value="" disabled>
+
+                            <!-- Step 1: Any Vegan Guests? (Hidden until guest count is selected) -->
+                            <div id="vegan-question-container" class="mb-4 hidden">
+                                <label class="block text-xs tracking-wider text-gray-600 mb-2 uppercase font-medium">是否有同行賓客需要素食餐點？ IS THERE ANY VEGAN GUEST? <span class="text-red-400">*</span></label>
+                                <select id="has-vegan-select" required onchange="handleVeganChoiceChange()" class="w-full px-4 py-3 bg-white rounded-lg border border-gray-200 focus:outline-none focus:border-morandi-gold text-sm transition-colors disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed">
+                                    <option value="" disabled selected>請選擇是否有素食需求</option>
+                                    <option value="否">否（皆吃葷食）</option>
+                                    <option value="是">是（需要素食餐點）</option>
+                                </select>
+                            </div>
+
+                            <!-- Step 2: How Many Vegan Guests? (Shown sequentially if "Yes") -->
+                            <div id="vegan-count-container" class="hidden">
+                                <label class="block text-xs tracking-wider text-gray-600 mb-2 uppercase font-medium">需要幾份素食餐點？ NUMBER OF VEGAN MEALS <span class="text-red-400">*</span></label>
+                                <select id="vegan-count-select" onchange="updateMealSummary()" class="w-full px-4 py-3 bg-white rounded-lg border border-gray-200 focus:outline-none focus:border-morandi-gold text-sm transition-colors">
+                                    <option value="" disabled selected>請選擇素食餐點數量</option>
+                                </select>
+                            </div>
+
+                            <p id="meal-error" class="hidden text-xs text-red-500 mt-3">請完成餐點選擇後再送出。</p>
+                        </div>
+
+                        <!-- BABY CHAIR -->
+                        <div>
+                            <label class="block text-xs tracking-wider text-gray-600 mb-2 uppercase font-medium">是否需要兒童椅 BABY CHAIR</label>
+                            <select id="兒童椅 BABY CHAIR" name="entry.341668150" class="w-full px-4 py-3 bg-white rounded-lg border border-gray-200 focus:outline-none focus:border-morandi-gold text-sm transition-colors disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed">
+                                <option value="不需要">不需要</option>
+                                <option value="需要 1 張">需要 1 張</option>
+                                <option value="需要 2 張">需要 2 張</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- 4. 中英雙語標籤 MESSAGE -->
+                <!-- 4. MESSAGE (Always visible) -->
                 <div>
                     <label class="block text-xs tracking-wider text-gray-600 mb-2 uppercase font-medium">給新人的祝福 MESSAGE</label>
                     <textarea name="entry.1537452765" rows="4" placeholder="寫下您對我們的祝福..." class="w-full px-4 py-3 bg-white rounded-lg border border-gray-200 focus:outline-none focus:border-morandi-gold text-sm transition-colors"></textarea>
@@ -428,6 +431,10 @@
 
         // 3. 智能 RSVP 邏輯
         const attendanceSelect = document.getElementById('attendance-select');
+        const attendeeDetails = document.getElementById('attendee-details');
+        const relationshipSelect = document.getElementById('您與新人關係 RELATIONSHIP');
+        const emailInput = document.querySelector('input[type="email"]');
+        
         const guestCountField = document.getElementById('guest-count-field');
         const guestSelect = document.getElementById('guest-count');
         const conditionalFields = document.getElementById('conditional-fields');
@@ -438,14 +445,13 @@
         const veganCountSelect = document.getElementById('vegan-count-select');
         const mealError = document.getElementById('meal-error');
         const babyChairSelect = document.getElementById('兒童椅 BABY CHAIR');
+        
         const invitationField = document.getElementById('invitation-field');
         const invitationSelect = document.getElementById('invitation-select');
         const addressField = document.getElementById('address-field');
         const addressInput = document.getElementById('address-input');
 
         // 紙本喜帖 / 收件地址的條件控制
-        // 只有「熱情出席」時才顯示紙本喜帖選項。
-        // 只有選擇「需要紙本喜帖」時，地址欄位才會啟用並送出。
         function updateInvitationFields() {
             const isAttending = attendanceSelect.value === '熱情出席';
             const needsPaperInvitation = invitationSelect.value === '需要紙本喜帖';
@@ -527,8 +533,6 @@
                 return false;
             }
 
-            // Google Form entry.810155347 now stores the vegan quantity
-            // in the new format, e.g. "0 person", "1 person", "2 person".
             if (hasVegan === '否') {
                 mealSummary.value = '0 person';
                 mealSummary.disabled = false;
@@ -554,68 +558,6 @@
             return false;
         }
 
-        /* =========================================================
-        DASHBOARD: 解析 Google Sheet 的餐點摘要
-        ========================================================= */
-        function parseMealSummary(text) {
-            const result = {
-                total: 0,
-                meat: 0,
-                vegan: 0,
-                unspecified: 0
-            };
-
-            if (!text) {
-                return result;
-            }
-
-            const value = String(text).trim();
-
-            // 總出席人數
-            const totalMatch = value.match(/(\d+)\s*人出席/);
-
-            // 葷食
-            const meatMatch = value.match(/葷食\s*(\d+)\s*人/);
-
-            // 全素
-            const veganMatch = value.match(/全素\s*(\d+)\s*人/);
-
-            // 未指定
-            const unspecifiedMatch = value.match(/未指定\s*(\d+)\s*人/);
-
-            if (totalMatch) {
-                result.total = parseInt(totalMatch[1], 10);
-            }
-
-            if (meatMatch) {
-                result.meat = parseInt(meatMatch[1], 10);
-            }   
-
-            if (veganMatch) {
-                result.vegan = parseInt(veganMatch[1], 10);
-            }
-
-            if (unspecifiedMatch) {
-                result.unspecified = parseInt(unspecifiedMatch[1], 10);
-            }
-
-            /*
-            如果有總人數，但沒有明確指定餐點，
-            就把剩餘人數視為「未指定」。
-            */
-            const calculatedUnspecified =
-                result.total -
-                result.meat -
-                result.vegan -
-                result.unspecified;
-
-            if (calculatedUnspecified > 0) {
-                result.unspecified += calculatedUnspecified;
-            }
-
-            return result;
-        }
-
         function resetMealFields() {
             hasVeganSelect.value = '';
             hasVeganSelect.disabled = true;
@@ -634,10 +576,16 @@
             mealError.classList.add('hidden');
         }
 
+        // 核心邏輯：控制出席與不出席時表單區塊的可見度
         function updateGuestFields() {
             const attendance = attendanceSelect.value;
 
             if (attendance === '') {
+                // Initial state
+                attendeeDetails.classList.add('hidden');
+                relationshipSelect.required = false;
+                emailInput.required = false;
+                
                 guestCountField.classList.add('hidden');
                 guestSelect.value = '';
                 guestSelect.disabled = true;
@@ -651,6 +599,11 @@
             }
 
             if (attendance === '熱情出席') {
+                // Show everything else for those attending
+                attendeeDetails.classList.remove('hidden');
+                relationshipSelect.required = true;
+                emailInput.required = true;
+
                 guestCountField.classList.remove('hidden');
 
                 const zeroOption = guestSelect.querySelector('option[data-not-attending="true"]');
@@ -658,7 +611,7 @@
 
                 guestSelect.disabled = false;
                 guestSelect.required = true;
-                guestSelect.value = '';
+                if (guestSelect.value === '0 人 (無法出席)') guestSelect.value = '';
 
                 conditionalFields.classList.remove('hidden');
                 babyChairSelect.disabled = false;
@@ -669,8 +622,12 @@
             }
 
             if (attendance === '遺憾無法出席，給予祝福') {
-                // Keep the real Google Form field enabled so it is included in the POST.
-                // The field is hidden visually, but it must not be disabled.
+                // Hide details, user is redirected directly down to the blessing/submit
+                attendeeDetails.classList.add('hidden');
+                relationshipSelect.required = false; // Remove requirements to pass HTML validation
+                emailInput.required = false;
+
+                // For the backend payload, we still maintain the guest count field secretly 
                 guestCountField.classList.add('hidden');
 
                 let zeroOption = guestSelect.querySelector('option[data-not-attending="true"]');
