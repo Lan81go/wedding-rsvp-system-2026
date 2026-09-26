@@ -382,6 +382,17 @@
 
     <!-- JavaScript 邏輯 -->
     <script>
+        // --- 0. 修復重新整理時的自動捲動問題 (Scroll to top fix) ---
+        if ('scrollRestoration' in history) {
+            history.scrollRestoration = 'manual'; // 防止瀏覽器記憶捲動位置
+        }
+        window.scrollTo(0, 0); // 強制捲動到最頂部
+        
+        // 移除網址中的 #錨點 (避免跳轉)
+        if (window.location.hash) {
+            window.history.replaceState(null, null, window.location.pathname + window.location.search);
+        }
+        // -------------------------------------------------------------
         var submitted = false;
 
         // 1. 倒數計時器邏輯
